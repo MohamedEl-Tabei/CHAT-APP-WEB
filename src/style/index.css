@@ -1,0 +1,86 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+/*A*/
+/*B*/
+.bg-darkblue {
+  background-color: #1c264e;
+}
+
+.btn-darkblue {
+  background-color: #1c264e;
+  border-color: #1c264e;
+}
+.btn-darkblue:hover {
+  background-color: #1c264ee3;
+  border-color: #1c264ee3;
+}
+.btn-darkblue:disabled {
+  background-color: #1c264ecb;
+  border-color: #1c264ea8;
+}
+.btn-darkblue:active {
+  background-color: #1c264e !important;
+  border-color: #1c264e  !important;
+}
+/*C*/
+
+/*D*/
+/*E*/
+/*F*/
+/*G*/
+/*H*/
+.h-100vh {
+  height: 100vh;
+}
+/*I*/
+/*J*/
+/*K*/
+/*L*/
+/*M*/
+/*N*/
+/*O*/
+/*P*/
+.position-absolute {
+  position: absolute;
+}
+.position-relative {
+  position: relative;
+}
+
+/*Q*/
+/*R*/
+/*S*/
+.switch{
+  animation: opcity0_1 1s;
+}
+/*T*/
+.text-darkblue {
+  color: #1c264e;
+}
+
+/*U*/
+/*V*/
+/*W*/
+/*X*/
+/*Y*/
+/*Z*/
+/*@*/
+@keyframes opcity0_1 {
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
