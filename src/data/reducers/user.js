@@ -11,9 +11,13 @@ const user = createSlice({
     friends: [],
     requestToYou: [],
     requestFromYou: [],
+    error:""
   },
   extraReducers: (builder) => {
     builder.addCase(Actions.user.signup.fulfilled, (state, action) => ({
+      ...state,
+      ...action.payload,
+    })).addCase(Actions.user.login.fulfilled, (state, action) => ({
       ...state,
       ...action.payload,
     }));

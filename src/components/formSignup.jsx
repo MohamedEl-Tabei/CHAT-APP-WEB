@@ -128,7 +128,6 @@ const FormSignup = ({ setHasAccount }) => {
             className={`mb-3 w-75 w-98-mobile p-3 switch position-relative ${
               step === i + 1 ? "" : "d-none"
             }`}
-            controlId={v.toUpperCase()}
             key={i}
           >
             <Form.Label className="d-flex justify-content-between ">
@@ -159,6 +158,7 @@ const FormSignup = ({ setHasAccount }) => {
               <FontAwesomeIcon
                 icon={showPass ? faEye : faEyeSlash}
                 onClick={() => setShowPass(!showPass)}
+                className={`${hasError ? "text-danger" : ""}`}
               />
             </div>
           </Form.Group>
@@ -186,7 +186,7 @@ const FormSignup = ({ setHasAccount }) => {
       >
         Already have an account?
         <span
-          className="text-darkblue fw-bold ms-1"
+          className="text-darkblue fw-bold ms-1 pointer"
           onClick={() => setHasAccount(true)}
         >
           Log in
