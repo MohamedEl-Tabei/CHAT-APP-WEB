@@ -51,7 +51,7 @@ const FormSignup = ({ setHasAccount }) => {
       await setStep(2);
       await setError("");
     } catch (error) {
-      setError(error.response.data.replace(email,"This email"));
+      setError(error.response.data.toLowerCase().replace(email.toLocaleLowerCase(),"This email"));
       setStep(1);
     }
   };
@@ -113,7 +113,7 @@ const FormSignup = ({ setHasAccount }) => {
         break;
     }
   };
-  if (step === 1.5) return <Components.SendingEmail email={email} />;
+  if (step === 1.5) return <Components.SendingEmail email={email} send="code" />;
   if (step === 2.5) return <Components.Verifying />;
   if (step === 3.5) return <Components.PleaseWait />;
   return (
@@ -121,7 +121,7 @@ const FormSignup = ({ setHasAccount }) => {
       className="d-flex flex-column  align-items-center justify-content-center jcs-mobile  w-100  h-100 pt-3 pb-5 py-md-5  switch"
       onSubmit={(e) => onSubmitHandler(e)}
     >
-      <h1 className="mb-5 text-darkblue">Sign up</h1>
+      <h1 className="mb-5 text-darkblue fw-normal">Sign up</h1>
       {["Email", "Code", "Password"].map((v, i) => {
         return (
           <Form.Group
@@ -138,7 +138,7 @@ const FormSignup = ({ setHasAccount }) => {
             <Form.Control
               className="rounded-0 "
               type={v === "Password" && !showPass ? "password" : "text"}
-              placeholder={v === "Email" ? "user@example.com" : ""}
+              placeholder={v === "Email" ? "user@example.com" :v==="Password"?"••••••••": ""}
               onChange={(e) => onChangeHandler(e)}
               isInvalid={hasError}
               value={v === "Email" ? email : v === "Code" ? code : password}

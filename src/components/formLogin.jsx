@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAngleLeft,
+  faEye,
+  faEyeSlash,
+} from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import Actions from "../base/actions";
 import Components from "../base/components";
@@ -18,6 +22,7 @@ const FormLogin = ({ setHasAccount }) => {
   let [rememberMe, setRememberMe] = useState(false);
   let [showPass, setShowPass] = useState(true);
   let [hasError, setHasError] = useState(false);
+  let [forgetPassword, setForgetPassword] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     setHasError(user.error.length);
@@ -26,10 +31,11 @@ const FormLogin = ({ setHasAccount }) => {
 
   //Handlers
 
-  const onLogin = (event) => {
+  const onSubmit = async(event) => {
     event.preventDefault();
-    dispatch(Actions.user.login({ email, password,rememberMe }));
-    console.log(rememberMe)
+    if (forgetPassword) {
+    } else dispatch(Actions.user.login({ email, password, rememberMe }));
+    console.log(rememberMe);
     setStep(2);
   };
 
@@ -38,19 +44,37 @@ const FormLogin = ({ setHasAccount }) => {
     let title = event.currentTarget.title;
     if (title === "Email") setEmail(value);
     else setPassword(value);
-    setHasError(false)
+    setHasError(false);
   };
+  if (step === 2&&forgetPassword) return <Components.SendingEmail email={email} send={"link"}/>;
+  
   if (step === 2) return <Components.PleaseWait />;
   return (
     <Form
-      className="d-flex flex-column  align-items-center justify-content-center jcs-mobile  w-100  h-100 pt-3 pb-5 py-md-5  switch"
-      onSubmit={(e) => onLogin(e)}
+      className="d-flex flex-column  align-items-center justify-content-center jcs-mobile  w-100  h-100 pt-3 pb-5 py-md-5  switch position-relative"
+      onSubmit={(e) => onSubmit(e)}
     >
-      <h1 className="mb-5 text-darkblue">Login</h1>
+      <div
+        className={`${
+          forgetPassword
+            ? "pointer position-absolute top--170-mobile"
+            : "d-none"
+        }`}
+        onClick={() => setForgetPassword(false)}
+        style={{ top: 20, left: 20 }}
+      >
+        <FontAwesomeIcon icon={faAngleLeft} className="me-2" />
+        Back
+      </div>
+      <h1 className="mb-5 text-darkblue fw-normal">
+        {forgetPassword ? "Rest Password" : "Login"}
+      </h1>
       {["Email", "Password"].map((v, i) => {
         return (
           <Form.Group
-            className={` w-75 w-98-mobile p-3 pb-2 switch position-relative`}
+            className={` w-75 w-98-mobile p-3 pb-2 switch position-relative ${
+              forgetPassword && v === "Password" ? "d-none" : ""
+            }`}
             key={i}
           >
             <Form.Label className="d-flex justify-content-between ">
@@ -60,7 +84,7 @@ const FormLogin = ({ setHasAccount }) => {
               title={v}
               className="rounded-0 "
               type={v === "Password" && !showPass ? "password" : "text"}
-              placeholder={v === "Email" ? "user@example.com" : ""}
+              placeholder={v === "Email" ? "user@example.com" : "••••••••"}
               onChange={(e) => onChangeHandler(e)}
               isInvalid={hasError}
               value={v === "Email" ? email : password}
@@ -86,7 +110,11 @@ const FormLogin = ({ setHasAccount }) => {
           </Form.Group>
         );
       })}
-      <div className="d-flex  w-75 w-98-mobile px-3 my-3">
+      <div
+        className={`${
+          forgetPassword ? "d-none" : "d-flex"
+        }  w-75 w-98-mobile px-3 my-3`}
+      >
         <Form.Check
           type="checkbox"
           label="Stay logged in"
@@ -104,13 +132,26 @@ const FormLogin = ({ setHasAccount }) => {
           className=" w-100 btn-darkblue rounded-0"
           style={{ width: 150 }}
           type="submit"
-          disabled={!email.length || !password.length || hasError}
+          disabled={
+            !email.length || (!password.length && !forgetPassword) || hasError
+          }
         >
-          Login
+          {forgetPassword ? "Send link" : "Login"}
         </Button>
       </div>
-
-      <Form.Text className={`text-muted ${step !== 1 ? "d-none" : "d-flex"} `}>
+      <h6
+        className={`${
+          forgetPassword ? "d-none" : "d-flex"
+        } text-center py-3 m-0 pointer fw-normal`}
+        onClick={() => setForgetPassword(true)}
+      >
+        I forgot my password
+      </h6>
+      <Form.Text
+        className={`text-muted ${
+          step !== 1 || forgetPassword ? "d-none" : "d-flex"
+        } `}
+      >
         Don’t you have an account?
         <span
           className="text-darkblue fw-bold ms-1 pointer"
