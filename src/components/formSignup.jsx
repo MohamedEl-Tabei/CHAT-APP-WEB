@@ -19,7 +19,7 @@ const FormSignup = ({ setHasAccount }) => {
   let [code, setCode] = useState("");
   let [password, setPassword] = useState("");
   let [error, setError] = useState("");
-  let [showPass, setShowPass] = useState(true);
+  let [showPass, setShowPass] = useState(false);
   let [hasError, setHasError] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -145,14 +145,13 @@ const FormSignup = ({ setHasAccount }) => {
             />
 
             <div
-              className={`position-absolute   text-darkblue  align-items-center justify-content-end py-1 ${
+              className={`position-absolute   text-darkblue  align-items-center justify-content-end p-1 rounded-circle ${
                 v !== "Password" ? "d-none" : "d-flex"
               }`}
               style={{
                 bottom: 25,
                 right: 26,
-                width: 60,
-                backgroundColor: "inherit",
+                backgroundColor: "white",
               }}
             >
               <FontAwesomeIcon

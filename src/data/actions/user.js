@@ -32,7 +32,7 @@ const loginByToken=createAsyncThunk("user/login",async(data)=>{
     }})
     return await {...data,...user.data,error:""};
   } catch (error) {
-    return  {error:error.response.data};
+    return  {error:"Token is expired."};
   }
 })
 
