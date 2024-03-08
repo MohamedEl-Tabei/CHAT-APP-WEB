@@ -9,6 +9,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import Actions from "../base/actions";
 import Components from "../base/components";
+import REQUEST from "../api";
 const FormLogin = ({ setHasAccount }) => {
   /*
     step 1 Enter Data
@@ -23,6 +24,7 @@ const FormLogin = ({ setHasAccount }) => {
   let [showPass, setShowPass] = useState(false);
   let [hasError, setHasError] = useState(false);
   let [forgetPassword, setForgetPassword] = useState(false);
+  let [sendResetPasswordLink, setSendResetPasswordLink] = useState("");
   const dispatch = useDispatch();
   useEffect(() => {
     if (user.error !== "Token is expired.") setHasError(user.error.length);
@@ -34,8 +36,12 @@ const FormLogin = ({ setHasAccount }) => {
   const onSubmit = async (event) => {
     event.preventDefault();
     if (forgetPassword) {
+      setStep(2);
+      await REQUEST.CHATAPP_API.post("/user/sendResetPasswordLink", {
+        email,
+      });
+      setSendResetPasswordLink(`Link has been sent to`);
     } else dispatch(Actions.user.login({ email, password, rememberMe }));
-    console.log(rememberMe);
     setStep(2);
   };
 
@@ -46,6 +52,20 @@ const FormLogin = ({ setHasAccount }) => {
     else setPassword(value);
     setHasError(false);
   };
+  if (sendResetPasswordLink === `Link has been sent to`)
+    return (
+      <h1 className="d-flex h-100 fw-normal justify-content-center align-items-center flex-column">
+        <img
+          src="https://i.ibb.co/NVJLT1Q/closed-3829128.png"
+          style={{ width: 100 }}
+          className="mb-2"
+          alt="email"
+        />
+        {sendResetPasswordLink}
+
+        <h5 className="mt-4 text-darkblue fw-normal">{email}</h5>
+      </h1>
+    );
   if (step === 2 && forgetPassword)
     return <Components.SendingEmail email={email} send={"link"} />;
 
