@@ -5,6 +5,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Pages.Home/>}/>
+        <Route path="*" element={<Pages.NotFound/>}/>
       </Routes>
     </BrowserRouter>
   );

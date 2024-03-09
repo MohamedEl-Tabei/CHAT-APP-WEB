@@ -56,7 +56,7 @@ const FormLogin = ({ setHasAccount }) => {
     return (
       <h1 className="d-flex h-100 fw-normal justify-content-center align-items-center flex-column">
         <img
-          src="https://i.ibb.co/NVJLT1Q/closed-3829128.png"
+          src="https://i.ibb.co/XyXD0Hb/image-30.png"
           style={{ width: 100 }}
           className="mb-2"
           alt="email"
