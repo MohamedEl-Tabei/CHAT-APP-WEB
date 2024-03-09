@@ -5,7 +5,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Pages.Home/>}/>
-        <Route path="*" element={<Pages.NotFound/>}/>
+        <Route path="/resetPassword/user" element={<Pages.ResetPassword/>}/>
       </Routes>
     </BrowserRouter>
   );

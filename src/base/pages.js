@@ -1,8 +1,8 @@
 import Home from "../pages/home";
-import NotFound from "../pages/notFound";
+import ResetPassword from "../pages/resetPassword";
 
 const Pages={
-    Home,NotFound
+    Home,ResetPassword
 }
 
 export default Pages

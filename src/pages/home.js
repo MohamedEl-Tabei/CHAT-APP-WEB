@@ -17,7 +17,6 @@ const Home = () => {
   if (doneDispatch)
     return (
       <div>
-        https://chatapp-chatapp.netlify.app/
         <DeleteUsers />
         {user.name.length ? <Components.AuthHome /> : <Components.UnAuthHome />}
       </div>
