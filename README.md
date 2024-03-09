@@ -21,5 +21,6 @@ What did you learn while building this project? What challenges did you face and
 
 ## Demo
 
-https://effervescent-seahorse-b16f63.netlify.app/
+https://chatapp-chatapp.netlify.app/
+
 <!--https://chatapp-izc9.onrender.com/-->
