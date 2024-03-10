@@ -20,7 +20,9 @@
   /*F*/
   /*G*/
   /*H*/
-
+  .h-100-mobile{
+    height: 100% !important;
+  }
   /*I*/
   /*J*/
   .jcs-mobile{
@@ -49,6 +51,10 @@
   }
   .w-98-mobile{
     width: 98% !important;
+  }
+  .w-100-mobile{
+    width: 100% !important;
+    border-radius: 0% !important;
   }
 
   /*X*/

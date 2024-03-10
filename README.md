@@ -21,6 +21,5 @@ What did you learn while building this project? What challenges did you face and
 
 ## Demo
 
-https://chatapp-chatapp.netlify.app/
 
-<!--https://chatapp-izc9.onrender.com/-->
+https://chatapp-izc9.onrender.com/

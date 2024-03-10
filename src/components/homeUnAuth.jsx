@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import Components from "../base/components";
+import logo from "../base/logo"
 const UnAutHome = () => {
   let [hasAccount, setHasAccount] = useState(false);
   return (
@@ -11,7 +12,7 @@ const UnAutHome = () => {
           className="w-200px-mobile bg-darkblue p-2"
             style={{ width: 350 }}
             alt=""
-            src="https://i.ibb.co/PgSzxkT/image-29.png"
+            src={logo}
           />
         </Col>
         <Col>

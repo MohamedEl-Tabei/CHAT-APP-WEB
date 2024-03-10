@@ -4,8 +4,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="*" element={<Pages.NotFound/>}/>
         <Route path="/" element={<Pages.Home/>}/>
-        <Route path="/resetPassword" element={<Pages.ResetPassword/>}/>
+        <Route path="/resetPassword/:token" element={<Pages.ResetPassword/>}/>
       </Routes>
     </BrowserRouter>
   );
