@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import Components from "../base/components";
-import DeleteUsers from "../components/deleteUsers";
 import Actions from "../base/actions";
 
 const Home = () => {
@@ -17,7 +16,6 @@ const Home = () => {
   if (doneDispatch)
     return (
       <div>
-        <DeleteUsers />
         {user.name.length ? <Components.AuthHome /> : <Components.UnAuthHome />}
       </div>
     );
