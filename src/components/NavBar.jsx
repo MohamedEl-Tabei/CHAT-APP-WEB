@@ -16,7 +16,7 @@ function NavBar() {
             width="30"
             height="30"
             className="d-inline-block align-top"
-            alt="React Bootstrap logo"
+            alt="logo"
           />
         </Navbar.Brand>
         <Button onClick={onLogout}>Log out</Button>
