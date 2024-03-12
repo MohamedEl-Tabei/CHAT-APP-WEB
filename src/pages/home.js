@@ -12,8 +12,8 @@ const Home = () => {
     dispatch(Actions.user.loginByToken());
   }, [dispatch]);
   useEffect(() => {
-    setDoneDispatch(user.name.length||user.error.length);
-  }, [user.error,user.name]);
+    if (user.name.length || user.error.length) setDoneDispatch(true);
+  }, [user.error, user.name]);
   if (doneDispatch)
     return (
       <div>

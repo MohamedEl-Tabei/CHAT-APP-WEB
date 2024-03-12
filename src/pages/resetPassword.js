@@ -9,6 +9,7 @@ const token = window.location.pathname.replace("/resetPassword/", "");
 const ResetPassword = () => {
   let [checkToken, setCheckToken] = useState(false);
   let [show, setShow] = useState(false);
+  let [success,setSuccess]=useState(false)
   let [error, setError] = useState("");
   let [password, setPassword] = useState("");
   let [passwordConfirm, setPasswordConfirm] = useState("");
@@ -26,8 +27,6 @@ const ResetPassword = () => {
       return "Password must contain uppercase letters A-Z.";
     else if (!/[!@#$%^&*]/.test(password))
       return "Password must contain special characters [!@#$%^&*].";
-    else if(password!==passwordConfirm)
-    return "Password & Confirm Password must have same value.";
     else return "";
   };
   useEffect(() => {
@@ -43,24 +42,45 @@ const ResetPassword = () => {
     })();
   }, []);
   const onChangeHandler = (e) => {
-    if (e.currentTarget.placeholder === "Password"){
+    if (e.currentTarget.placeholder === "Password") {
       setPassword(e.currentTarget.value);
-      setError(passwordValidator(e.currentTarget.value))
+      setError(
+        e.currentTarget.value !== passwordConfirm && passwordConfirm.length
+          ? "Password & Confirm Password must have same value."
+          : passwordValidator(e.currentTarget.value)
+      );
+    } else {
+      setPasswordConfirm(e.currentTarget.value);
+      setError(
+        e.currentTarget.value !== password
+          ? "Password & Confirm Password must have same value."
+          : passwordValidator(password)
+      );
     }
-    else setPasswordConfirm(e.currentTarget.value);
   };
   const onsubmitHndler = async (e) => {
     e.preventDefault();
     try {
+      setCheckToken(false)
       await REQUEST.CHATAPP_API.put(
         "user/resetPassword",
         { password },
         { headers: { "x-auth-token": token } }
       );
+      setSuccess(true)
+      setCheckToken(true)
     } catch (error) {
       setError(error.response.data);
+      setCheckToken(true)
     }
   };
+  if (success) {
+    return (
+      <h1 className="h-100vh d-flex justify-content-center align-items-center text-success m-0">
+        Password has been changed successfully 
+      </h1>
+    );
+  }
   if (!checkToken)
     return (
       <div className="h-100vh">
@@ -128,14 +148,22 @@ const ResetPassword = () => {
                 "New Password"
               )}
             </Form.Label>
-            {["Password", "Confirm password"].map((v) => {
+            {["Password", "Confirm password"].map((v, k) => {
               return (
                 <Form.Control
+                  key={k}
                   className="mb-3"
                   type={show ? "text" : "password"}
                   size="lg"
                   placeholder={v}
                   onChange={(event) => onChangeHandler(event)}
+                  disabled={
+                    ((error.length &&
+                      error !==
+                        "Password & Confirm Password must have same value.") ||
+                      !password.length) &&
+                    v === "Confirm password"
+                  }
                 />
               );
             })}
@@ -145,7 +173,9 @@ const ResetPassword = () => {
             className="btn-darkblue mt-4 w-100 mx-5"
             size="lg"
             type="submit"
-            disabled={error.length||password!==passwordConfirm}
+            disabled={
+              error.length || password !== passwordConfirm || !password.length
+            }
           >
             Reset password
           </Button>

@@ -1,6 +1,6 @@
 import axios from "axios"
 const config={
-   // baseURL:"http://localhost:5000/api"
+   //baseURL:"http://localhost:5000/api"
    baseURL:"https://chat-app-server-ijxt.onrender.com/api"
 }
 

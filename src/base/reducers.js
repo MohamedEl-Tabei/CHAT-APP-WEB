@@ -1,6 +1,6 @@
 import user from "../data/reducers/user"
 const Reducers={
-    user
+    user:user.reducer
 }
 
 
