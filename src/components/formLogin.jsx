@@ -54,7 +54,7 @@ const FormLogin = ({ setHasAccount }) => {
   };
   if (sendResetPasswordLink === `Link has been sent to`)
     return (
-      <h1 className="d-flex h-100 fw-normal justify-content-center align-items-center flex-column">
+      <h1 className="d-flex h-100 fw-normal justify-content-center align-items-center flex-column switch">
         <img
           src="https://i.ibb.co/XyXD0Hb/image-30.png"
           style={{ width: 100 }}

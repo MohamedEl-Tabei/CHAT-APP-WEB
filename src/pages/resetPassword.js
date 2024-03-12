@@ -1,12 +1,17 @@
 import { Button, Form } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import logo from "../base/logo";
+import REQUEST from "../api";
+import Components from "../base/components";
 const token = window.location.pathname.replace("/resetPassword/", "");
 const ResetPassword = () => {
+  let [checkToken, setCheckToken] = useState(false);
   let [show, setShow] = useState(false);
   let [error, setError] = useState("");
+  let [password, setPassword] = useState("");
+  let [passwordConfirm, setPasswordConfirm] = useState("");
   const passwordValidator = (password) => {
     if (password.length === 0) return "Password is required.";
     else if (password.length < 8)
@@ -21,9 +26,54 @@ const ResetPassword = () => {
       return "Password must contain uppercase letters A-Z.";
     else if (!/[!@#$%^&*]/.test(password))
       return "Password must contain special characters [!@#$%^&*].";
+    else if(password!==passwordConfirm)
+    return "Password & Confirm Password must have same value.";
     else return "";
   };
-
+  useEffect(() => {
+    (async () => {
+      try {
+        await REQUEST.CHATAPP_API.get("/user/validToken", {
+          headers: { "x-auth-token": token },
+        });
+      } catch (error) {
+        setError(error.response.data);
+      }
+      setCheckToken(true);
+    })();
+  }, []);
+  const onChangeHandler = (e) => {
+    if (e.currentTarget.placeholder === "Password"){
+      setPassword(e.currentTarget.value);
+      setError(passwordValidator(e.currentTarget.value))
+    }
+    else setPasswordConfirm(e.currentTarget.value);
+  };
+  const onsubmitHndler = async (e) => {
+    e.preventDefault();
+    try {
+      await REQUEST.CHATAPP_API.put(
+        "user/resetPassword",
+        { password },
+        { headers: { "x-auth-token": token } }
+      );
+    } catch (error) {
+      setError(error.response.data);
+    }
+  };
+  if (!checkToken)
+    return (
+      <div className="h-100vh">
+        <Components.PleaseWait />
+      </div>
+    );
+  if (error === "jwt expired") {
+    return (
+      <h1 className="h-100vh d-flex justify-content-center align-items-center text-danger m-0">
+        Link Expired
+      </h1>
+    );
+  }
   return (
     <div
       className="w-100 h-100vh position-relative"
@@ -37,14 +87,20 @@ const ResetPassword = () => {
       onClick={() => console.log(token)}
     >
       <div
-        className="position-absolute bg-dark h-100 w-100 d-flex flex-column justify-content-center align-items-center"
+        className="position-absolute bg-light h-100 w-100 d-flex flex-column justify-content-center align-items-center"
         style={{ opacity: 0.95 }}
       >
         <Form
           className="w-50 w-98-mobile  h-100-mobile w-100-mobile p-4 p-sm-5 rounded-5 d-flex flex-column justify-content-around  align-items-center"
           style={{ backgroundColor: "#f8f9fa30" }}
+          onSubmit={(event) => onsubmitHndler(event)}
         >
-          <img className="mb-4" style={{ width: 250 }} src={logo} />
+          <img
+            className="mb-4 bg-darkblue p-2"
+            alt="logo"
+            style={{ width: 250 }}
+            src={logo}
+          />
 
           <Form.Group
             className="mx-5 mb-3 w-100 position-relative text-light"
@@ -63,7 +119,15 @@ const ResetPassword = () => {
             >
               <FontAwesomeIcon icon={show ? faEye : faEyeSlash} />
             </div>
-            <Form.Label>New Password</Form.Label>
+            <Form.Label>
+              {error.length ? (
+                <span className="text-danger">
+                  {error.replace("jwt", "Link")}
+                </span>
+              ) : (
+                "New Password"
+              )}
+            </Form.Label>
             {["Password", "Confirm password"].map((v) => {
               return (
                 <Form.Control
@@ -71,12 +135,18 @@ const ResetPassword = () => {
                   type={show ? "text" : "password"}
                   size="lg"
                   placeholder={v}
+                  onChange={(event) => onChangeHandler(event)}
                 />
               );
             })}
           </Form.Group>
 
-          <Button className="btn-darkblue mt-4 w-100 mx-5" size="lg">
+          <Button
+            className="btn-darkblue mt-4 w-100 mx-5"
+            size="lg"
+            type="submit"
+            disabled={error.length||password!==passwordConfirm}
+          >
             Reset password
           </Button>
         </Form>
