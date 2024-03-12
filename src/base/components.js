@@ -5,7 +5,7 @@ import SendingEmail from "../components/animationSendingEmail"
 import Verifying from "../components/animationVerifying"
 import PleaseWait from "../components/animationPleaseWait"
 import AuthHome from "../components/homeAuth"
-import NavBar from "../components/navbar"
+import NavBar from "../components/navbarr"
 const Components={
     UnAuthHome,AuthHome,FormSignup,FormLogin,SendingEmail,Verifying,PleaseWait,NavBar
 }
