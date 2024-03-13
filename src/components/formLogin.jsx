@@ -51,6 +51,7 @@ const FormLogin = ({ setHasAccount }) => {
     if (title === "Email") setEmail(value);
     else setPassword(value);
     setHasError(false);
+    dispatch(Actions.user.setErrorEmpty())
   };
   if (sendResetPasswordLink === `Link has been sent to`)
     return (

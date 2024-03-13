@@ -76,7 +76,7 @@ const ResetPassword = () => {
   };
   if (success) {
     return (
-      <h1 className="h-100vh d-flex justify-content-center align-items-center text-success m-0">
+      <h1 className="h-100vh d-flex justify-content-center align-items-center text-success m-0 text-center p-3">
         Password has been changed successfully 
       </h1>
     );
@@ -89,7 +89,7 @@ const ResetPassword = () => {
     );
   if (error === "jwt expired") {
     return (
-      <h1 className="h-100vh d-flex justify-content-center align-items-center text-danger m-0">
+      <h1 className="h-100vh d-flex justify-content-center align-items-center text-danger m-0 text-center p-3">
         Link Expired
       </h1>
     );

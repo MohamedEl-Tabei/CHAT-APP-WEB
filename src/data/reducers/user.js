@@ -15,8 +15,11 @@ const user = createSlice({
     error: "",
   },
   reducers: {
+    setErrorEmpty(state) {
+      return { ...state, error: "" };
+    },
     logout() {
-      Cookies.remove("auth")
+      Cookies.remove("auth");
       return {
         token: "",
         name: "",
