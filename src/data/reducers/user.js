@@ -13,6 +13,8 @@ const user = createSlice({
     requestToYou: [],
     requestFromYou: [],
     error: "",
+    searchFor: "",
+    searchArray: [],
   },
   reducers: {
     setErrorEmpty(state) {
@@ -30,6 +32,8 @@ const user = createSlice({
         requestToYou: [],
         requestFromYou: [],
         error: "",
+        searchFor: "",
+        searchArray: [],
       };
     },
   },
@@ -42,7 +46,14 @@ const user = createSlice({
       .addCase(Actions.user.login.fulfilled, (state, action) => ({
         ...state,
         ...action.payload,
-      }));
+      }))
+      .addCase(Actions.user.loginByToken.fulfilled, (state, action) => ({
+        ...state,
+        ...action.payload,
+      }))
+      .addCase(Actions.user.search.fulfilled, (state, action) => {
+        return { ...state, ...action.payload };
+      });
   },
 });
 const reducer = user.reducer;

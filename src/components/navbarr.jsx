@@ -1,27 +1,50 @@
 import { Navbar, Container, Dropdown, Nav } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Actions from "../base/actions";
-import { useRef } from "react";
+import Components from "../base/components";
+import { useRef, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 
 function NavBar() {
   const user = useSelector((s) => s.user);
+  let [searchFor, setSearchFor] = useState("Search chat");
   const refDropdown = useRef();
   const dispatch = useDispatch();
   const onLogout = () => {
     dispatch(Actions.user.logout());
   };
+  const onSelectDropdownItem = (event) => {
+    event.preventDefault();
+    if (event.currentTarget.name === "New Chat") setSearchFor("Search new chat");
+    else if (event.currentTarget.name === "Chat Request") setSearchFor("Search request");
+  };
+  const onClickBack = () => {
+    setSearchFor("Search chat");
+  };
   return (
-    <Navbar className="bg-darkblue border-end" data-bs-theme="dark">
+    <Navbar className="bg-darkblue border-end py-3" data-bs-theme="dark">
       <Container>
-        <Navbar.Brand href="#home">
-          <img
-            src={user.image}
-            width="50"
-            height="50"
-            className="d-inline-block align-top rounded-circle"
-            alt="Profile"
-          />
+        <Navbar.Brand>
+          {searchFor === "Search chat" ? (
+            <img
+              src={user.image}
+              width="50"
+              height="50"
+              className="d-inline-block align-top rounded-circle border border-light border-3"
+              alt="Profile"
+            />
+          ) : (
+            <div style={{ height: 50, width: 50 }} className="d-flex justify-content-center align-items-center">
+              <FontAwesomeIcon
+                onClick={onClickBack}
+                icon={faArrowLeftLong}
+                className="pointer"
+              />
+            </div>
+          )}
         </Navbar.Brand>
+        <Components.Search searchFor={searchFor} />
         <Nav>
           <Dropdown drop="start" data-bs-theme="light">
             <Dropdown.Toggle className="d-none" ref={refDropdown} />
@@ -32,7 +55,9 @@ function NavBar() {
               {["New Chat", "Chat Request"].map((v) => (
                 <Dropdown.Item
                   key={v}
+                  name={v}
                   className="text-center dropdown-item-lightblue py-2"
+                  onClick={(e) => onSelectDropdownItem(e)}
                 >
                   {v}
                 </Dropdown.Item>
