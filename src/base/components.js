@@ -6,8 +6,9 @@ import Verifying from "../components/animationVerifying"
 import PleaseWait from "../components/animationPleaseWait"
 import AuthHome from "../components/homeAuth"
 import NavBar from "../components/navbarr"
+import Search from "../components/search"
 const Components={
-    UnAuthHome,AuthHome,FormSignup,FormLogin,SendingEmail,Verifying,PleaseWait,NavBar
+    UnAuthHome,AuthHome,FormSignup,FormLogin,SendingEmail,Verifying,PleaseWait,NavBar,Search
 }
 
 export default Components

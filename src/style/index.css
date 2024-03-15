@@ -16,6 +16,7 @@ code {
   background-color: #1c264e;
 }
 
+
 .btn-darkblue {
   background-color: #1c264e;
   border-color: #1c264e;
@@ -35,6 +36,10 @@ code {
 /*C*/
 
 /*D*/
+.dropdown-item-lightblue:hover{
+  background-color: #1c264eb5;
+  color: white !important;
+}
 /*E*/
 /*F*/
 .form-check-input{

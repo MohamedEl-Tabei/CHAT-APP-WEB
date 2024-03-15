@@ -14,7 +14,7 @@
     display: flex !important;
   }
   .d-none-mobile{
-    display: none;
+    display: none !important;
   }
   /*E*/
   /*F*/

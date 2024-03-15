@@ -20,7 +20,10 @@ const signup = createAsyncThunk("user/signup", async (data) => {
 const login = createAsyncThunk("user/login", async (data) => {
   try {
     let user = await REQUEST.CHATAPP_API.post("/user/login", { ...data });
-    cookie.set("auth", await user.data.token, { expires: 360 });
+    if(data.rememberMe)
+      cookie.set("auth", await user.data.token, { expires: 360 });
+    else
+      cookie.set("auth", await user.data.token);
     return await { ...data, ...user.data, error: "" };
   } catch (error) {
     return { error: error.response.data };
