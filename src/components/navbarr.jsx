@@ -2,7 +2,7 @@ import { Navbar, Container, Dropdown, Nav } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Actions from "../base/actions";
 import Components from "../base/components";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 
@@ -16,12 +16,17 @@ function NavBar() {
   };
   const onSelectDropdownItem = (event) => {
     event.preventDefault();
-    if (event.currentTarget.name === "New Chat") setSearchFor("Search new chat");
-    else if (event.currentTarget.name === "Chat Request") setSearchFor("Search request");
+    if (event.currentTarget.name === "New Chat")
+      setSearchFor("Search new chat");
+    else if (event.currentTarget.name === "Chat Request")
+      setSearchFor("Search request");
   };
   const onClickBack = () => {
     setSearchFor("Search chat");
   };
+  useEffect(() => {
+    dispatch(Actions.user.setSearchFor(searchFor));
+  }, [dispatch, searchFor]);
   return (
     <Navbar className="bg-gray" data-bs-theme="light">
       <Container>
@@ -35,7 +40,10 @@ function NavBar() {
               alt="Profile"
             />
           ) : (
-            <div style={{ height: 50, width: 50 }} className="d-flex justify-content-center align-items-center">
+            <div
+              style={{ height: 50, width: 50 }}
+              className="d-flex justify-content-center align-items-center"
+            >
               <FontAwesomeIcon
                 onClick={onClickBack}
                 icon={faArrowLeftLong}

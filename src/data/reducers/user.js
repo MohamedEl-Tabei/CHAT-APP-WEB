@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
 import Actions from "../../base/actions";
-import Util from "../../base/util"
 const user = createSlice({
   name: "user",
   initialState: {
@@ -10,21 +9,22 @@ const user = createSlice({
     id: "",
     image: "",
     email: "",
-    friends: [],
-    requestToYou: [],
-    requestFromYou: [],
     error: "",
-    searchFor: "",
+    searchFor: "Search chat",
     searchArray: [],
+    searchKey: "",
   },
   reducers: {
     setErrorEmpty(state) {
       return { ...state, error: "" };
     },
-    setSearchArrayEmpty(state){
-      Util.arrays.deleteArray(state.searchArray)
-      return state
+    setSearchArrayEmpty(state) {
+      return {...state,searchArray:[],searchKey:""};
     },
+    setSearchFor(state,action){
+      return {...state,searchFor:action.payload}
+    }
+    ,
     logout() {
       Cookies.remove("auth");
       return {
@@ -33,12 +33,10 @@ const user = createSlice({
         id: "",
         image: "",
         email: "",
-        friends: [],
-        requestToYou: [],
-        requestFromYou: [],
         error: "",
         searchFor: "",
         searchArray: [],
+        searchKey: "",
       };
     },
   },

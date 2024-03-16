@@ -56,8 +56,7 @@ const search = createAsyncThunk("user/search", async (data) => {
             },
           }
         );
-      }
-      else if(data.for === "Search chat") {
+      } else if (data.for === "Search chat") {
         users = await REQUEST.CHATAPP_API.post(
           "user/searchFriend",
           { keyword: data.keyword },
@@ -67,8 +66,7 @@ const search = createAsyncThunk("user/search", async (data) => {
             },
           }
         );
-      }
-      else if(data.for==="Search request"){
+      } else if (data.for === "Search request") {
         users = await REQUEST.CHATAPP_API.post(
           "user/searchRequest",
           { keyword: data.keyword },
@@ -83,6 +81,7 @@ const search = createAsyncThunk("user/search", async (data) => {
     return {
       searchFor: data.for,
       searchArray: await users.data,
+      searchKey: data.keyword,
       error: "",
     };
   } catch (error) {

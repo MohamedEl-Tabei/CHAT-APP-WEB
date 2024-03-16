@@ -13,39 +13,31 @@ const Search = ({ searchFor }) => {
   let [str, setSTR] = useState("");
   let [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const preventDispatch = (value) => {
-    if (str.length && value.length) {
-      if (value.includes(str) && user.searchArray.length === 0) return true;
-      if (user.searchArray.length === 1)
-        if (user.searchArray[0].name.toLowerCase().includes(value)) return true;
-      if (user.searchFor === "Search request" && user.searchArray.length === 2)
-        if (
-          user.searchArray[0].length === 0 &&
-          user.searchArray[1].length === 0 &&
-          value.includes(str)
-        )
-          return true;
-    }
-    return false;
-  };
-
-  const onchange = (event) => {
-    const value = event.currentTarget.value.toLowerCase();
-    if (!preventDispatch(value)) {
+  const onSubmit = (event) => {
+    event.preventDefault();
+    if (str.length) {
       setLoading(true);
       dispatch(
         Actions.user.search({
-          keyword: value,
+          keyword: str,
           for: searchFor,
           token: user.token,
         })
       );
     }
+  };
+
+  const onchange = (event) => {
+    const value = event.currentTarget.value.toLowerCase();
+    if (value.length === 0) {
+      dispatch(Actions.user.setSearchArrayEmpty());
+    }
     setSTR(value);
   };
   useEffect(() => {
     setSTR("");
-  }, [searchFor]);
+    dispatch(Actions.user.setSearchArrayEmpty());
+  }, [searchFor, dispatch]);
   useEffect(() => {
     setLoading(false);
   }, [user.searchArray]);
@@ -53,7 +45,7 @@ const Search = ({ searchFor }) => {
     <Form
       className="d-flex  w-100 mx-3  position-relative  bg-light rounded-5"
       data-bs-theme="light"
-      onSubmit={(e) => e.preventDefault()}
+      onSubmit={(e) => onSubmit(e)}
     >
       <Form.Control
         type="text"
@@ -63,13 +55,13 @@ const Search = ({ searchFor }) => {
         size="sm"
         onChange={(e) => onchange(e)}
         value={str}
+        readOnly={loading}
       />
       {loading ? (
         <Spinner
-        
-        className="position-absolute"
-        style={{ top: 10, right: 16, color: "#999daf" }}
-        size="sm"
+          className="position-absolute"
+          style={{ top: 10, right: 16, color: "#999daf" }}
+          size="sm"
         />
       ) : (
         <FontAwesomeIcon
