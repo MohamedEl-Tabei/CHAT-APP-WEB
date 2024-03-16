@@ -15,7 +15,9 @@ code {
 .bg-darkblue {
   background-color: #1c264e;
 }
-
+.bg-gray{
+  background-color: #e2e4e9;
+}
 
 .btn-darkblue {
   background-color: #1c264e;
@@ -37,7 +39,7 @@ code {
 
 /*D*/
 .dropdown-item-lightblue:hover{
-  background-color: #1c264eb5;
+  background-color: #1c264e;
   color: white !important;
 }
 /*E*/

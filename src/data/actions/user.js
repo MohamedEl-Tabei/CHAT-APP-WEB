@@ -44,19 +44,47 @@ const loginByToken = createAsyncThunk("user/loginByToken", async (data) => {
 const search = createAsyncThunk("user/search", async (data) => {
   //Search For //1-Search chat //2-Search new chat //3-Search request
   try {
-    let users = [];
-    if (data.for === "Search new chat") {
-      users = await REQUEST.CHATAPP_API.post(
-        "user/searchNewFriend",
-        { keyword: data.keyword },
-        {
-          headers: {
-            "x-auth-token": data.token,
-          },
-        }
-      );
+    let users = { data: [] };
+    if (data.keyword.length) {
+      if (data.for === "Search new chat") {
+        users = await REQUEST.CHATAPP_API.post(
+          "user/searchNewFriend",
+          { keyword: data.keyword },
+          {
+            headers: {
+              "x-auth-token": data.token,
+            },
+          }
+        );
+      }
+      else if(data.for === "Search chat") {
+        users = await REQUEST.CHATAPP_API.post(
+          "user/searchFriend",
+          { keyword: data.keyword },
+          {
+            headers: {
+              "x-auth-token": data.token,
+            },
+          }
+        );
+      }
+      else if(data.for==="Search request"){
+        users = await REQUEST.CHATAPP_API.post(
+          "user/searchRequest",
+          { keyword: data.keyword },
+          {
+            headers: {
+              "x-auth-token": data.token,
+            },
+          }
+        );
+      }
     }
-    return { searchFor: data.for, searchArry: await users.data, eror: "" };
+    return {
+      searchFor: data.for,
+      searchArray: await users.data,
+      error: "",
+    };
   } catch (error) {
     return { error: error.response.data };
   }

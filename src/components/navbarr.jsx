@@ -23,7 +23,7 @@ function NavBar() {
     setSearchFor("Search chat");
   };
   return (
-    <Navbar className="bg-darkblue border-end py-3" data-bs-theme="dark">
+    <Navbar className="bg-gray" data-bs-theme="light">
       <Container>
         <Navbar.Brand>
           {searchFor === "Search chat" ? (
@@ -49,7 +49,7 @@ function NavBar() {
           <Dropdown drop="start" data-bs-theme="light">
             <Dropdown.Toggle className="d-none" ref={refDropdown} />
             <Dropdown.Menu
-              className="rounded-0 switch p-0"
+              className="rounded-0 switch p-0 border-0 shadow"
               style={{ top: 10, right: -10 }}
             >
               {["New Chat", "Chat Request"].map((v) => (
@@ -62,7 +62,6 @@ function NavBar() {
                   {v}
                 </Dropdown.Item>
               ))}
-              <Dropdown.Divider className="m-0" />
               <Dropdown.Item
                 className="text-danger dropdown-item-lightblue text-center py-2"
                 onClick={onLogout}
