@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 
 const ResultSearchRequest = ({ data }) => {
   const user = useSelector((s) => s.user);
-  let [fromYou, setToYou] = useState([]);
-  let [toYou, setFromYou] = useState([]);
+  let [fromYou, setToYou] = useState();
+  let [toYou, setFromYou] = useState();
   let [mounted, setMounted] = useState(false);
   useEffect(() => {
     if (user.searchKey.length) {
@@ -15,19 +15,20 @@ const ResultSearchRequest = ({ data }) => {
       setFromYou(data[0]);
       setToYou(data[1]);
     }
-    setMounted(true);
   }, [data, user.searchKey, user.searchArray]);
-
+  useEffect(() => {
+    if (toYou && fromYou) setMounted(true);
+  }, [toYou, fromYou]);
   if (mounted)
     return (
-      <div className="h-100">
+      <div className="">
         <h1>Requests From You</h1>
         {fromYou.length ? (
           fromYou.map((r, i) => <h3>{r.name}</h3>)
         ) : (
           <Components.NoData />
         )}
-        <h1 >Requests to You</h1>
+        <h1>Requests to You</h1>
         {toYou.length ? (
           fromYou.map((r, i) => <h3>{r.name}</h3>)
         ) : (
@@ -35,5 +36,6 @@ const ResultSearchRequest = ({ data }) => {
         )}
       </div>
     );
+  return <div />;
 };
 export default ResultSearchRequest;
