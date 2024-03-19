@@ -15,6 +15,9 @@ code {
 .bg-darkblue {
   background-color: #20263f !important;
 }
+.bg-user {
+  background-color: #20263f ;
+}
 .bg-darkblue-hover:hover{
   background-color: #20263f !important;
   color: white !important;
@@ -22,7 +25,9 @@ code {
 .bg-gray{
   background-color: #e2e4e9;
 }
-
+.bg-none{
+  background-color: #20263f00 !important;
+}
 .btn-darkblue {
   background-color: #20263f;
   border-color: #20263f;
@@ -95,7 +100,9 @@ code {
 .text-darkblue {
   color: #20263f;
 }
-
+.text-user{
+  color: white !important;
+}
 /*U*/
 /*V*/
 /*W*/

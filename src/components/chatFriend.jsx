@@ -6,7 +6,7 @@ const ChatFriend = ({ friend }) => {
   const user = useSelector((s) => s.user);
   return (
     <div
-      className={`w-100 d-flex align-items-center pointer py-3 bg-darkblue text-light shadow`}
+      className={`w-100 d-flex align-items-center pointer py-3 bg-none text-user shadow`}
     >
       <img
         src={friend.image}

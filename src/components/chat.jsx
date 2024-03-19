@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import variables from "../base/variables";
-import { Form, Navbar, Button, Container } from "react-bootstrap";
+import { Form, Navbar, Button, Container, CloseButton } from "react-bootstrap";
 import { io } from "socket.io-client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import Actions from "../base/actions";
 const Chat = () => {
   const user = useSelector((s) => s.user);
+  const dispatch = useDispatch();
   const [socket, setSocket] = useState();
   const [mounted, setMounted] = useState(false);
   const [isOnline, setIsOnline] = useState(false);
+  const onCloseChat = () => {
+    dispatch(Actions.user.setConnectWith(""));
+  };
   useEffect(() => {
     if (mounted) {
       const newSocket = io(variables.baseUrl, { autoConnect: false });
@@ -20,14 +25,22 @@ const Chat = () => {
     if (mounted && socket) {
       socket.connect();
       socket.emit("addToOnlineUsers", user._id);
+      socket.on("isOnline", (friendId) => {
+        if (friendId === user.connectWith._id) setIsOnline(true);
+      });
+      socket.on("isOffline", (friendId) => {
+        if (friendId === user.connectWith._id) setIsOnline(false);
+      });
     }
-  }, [socket, user._id, mounted]);
+  }, [socket, user._id, user.connectWith, mounted]);
   useEffect(() => {
-    if (user.connectWith) setIsOnline(user.connectWith.socketId.length);
+    if (user.connectWith) {
+      setIsOnline(user.connectWith.socketId.length);
+    }
   }, [user.connectWith]);
   if (user.connectWith)
     return (
-      <div className="w-100 h-100 d-flex flex-column justify-content-between bg-gray  d-none-mobile">
+      <div className="w-100 h-100 d-flex flex-column justify-content-between bg-gray ">
         <Navbar className="bg-light shadow">
           <Container>
             <Navbar.Brand className="position-relative  d-flex align-items-center w-100">
@@ -42,6 +55,7 @@ const Chat = () => {
               <div
                 className={`isonline bg-${isOnline ? "success" : "secondary"}`}
               />
+              <CloseButton onClick={onCloseChat} className="ms-auto" />
             </Navbar.Brand>
           </Container>
         </Navbar>
@@ -81,7 +95,7 @@ const Chat = () => {
     );
   else
     return (
-      <div className="w-100 d-flex flex-column justify-content-center align-items-center d-none-mobile bg-gray ">
+      <div className="w-100 h-100 d-flex flex-column justify-content-center align-items-center  bg-gray ">
         <img
           src={variables.loogo}
           alt="CHATAPP"

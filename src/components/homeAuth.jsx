@@ -24,9 +24,10 @@ const AutHome = () => {
         })();
     }
   }, [user.searchKey, user.searchArray, user.searchFor, user.token]);
+  
   return (
     <div className="h-100vh d-flex ">
-      <div style={{ width: "45%" }} className=" w-100-mobile bg-darkblue">
+      <div style={{ width: "45%" }} className={` w-100-mobile bg-user ${user.connectWith?"d-none-mobile":""}  `}>
         <Components.NavBar />
         {
           //Search For //1-Search chat //2-Search new chat //3-Search request
@@ -43,7 +44,9 @@ const AutHome = () => {
           )
         }
       </div>
-      <Components.Chat />
+      <div className={` ${user.connectWith?"":"d-none-mobile"} w-100`}>
+        <Components.Chat />
+      </div>
     </div>
   );
 };
