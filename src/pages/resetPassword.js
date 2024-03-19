@@ -2,7 +2,7 @@ import { Button, Form } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import logo from "../base/logo";
+import variables from "../base/variables";
 import REQUEST from "../api";
 import Components from "../base/components";
 const token = window.location.pathname.replace("/resetPassword/", "");
@@ -119,7 +119,7 @@ const ResetPassword = () => {
             className="mb-4 bg-darkblue p-2"
             alt="logo"
             style={{ width: 250 }}
-            src={logo}
+            src={variables.loogo}
           />
 
           <Form.Group

@@ -28,7 +28,7 @@ function NavBar() {
     dispatch(Actions.user.setSearchFor(searchFor));
   }, [dispatch, searchFor]);
   return (
-    <Navbar className="bg-gray" data-bs-theme="light">
+    <Navbar className="bg-darkblue  border-bottom shadow" data-bs-theme="dark">
       <Container>
         <Navbar.Brand>
           {searchFor === "Search chat" ? (
@@ -64,14 +64,14 @@ function NavBar() {
                 <Dropdown.Item
                   key={v}
                   name={v}
-                  className="text-center dropdown-item-lightblue py-2"
+                  className="text-center dropdown-item-gray py-2"
                   onClick={(e) => onSelectDropdownItem(e)}
                 >
                   {v}
                 </Dropdown.Item>
               ))}
               <Dropdown.Item
-                className="text-danger dropdown-item-lightblue text-center py-2"
+                className="text-danger dropdown-item-gray text-center py-2"
                 onClick={onLogout}
               >
                 Log out

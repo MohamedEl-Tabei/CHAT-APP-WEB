@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import Components from "../base/components";
-import logo from "../base/logo";
 import { useEffect, useState } from "react";
 import REQUEST from "../api";
 const AutHome = () => {
@@ -26,8 +25,8 @@ const AutHome = () => {
     }
   }, [user.searchKey, user.searchArray, user.searchFor, user.token]);
   return (
-    <div className="h-100vh d-flex">
-      <div style={{ width: "45%" }} className=" w-100-mobile">
+    <div className="h-100vh d-flex ">
+      <div style={{ width: "45%" }} className=" w-100-mobile bg-darkblue">
         <Components.NavBar />
         {
           //Search For //1-Search chat //2-Search new chat //3-Search request
@@ -35,7 +34,7 @@ const AutHome = () => {
           (user.searchArray.length || listOfRorF.length) ? (
             <Components.ResultSearchChat data={listOfRorF} />
           ) : user.searchFor === "Search new chat" ? (
-            <Components.ResultSearchNewChat  />
+            <Components.ResultSearchNewChat />
           ) : user.searchFor === "Search request" &&
             (user.searchArray.length || listOfRorF.length) ? (
             <Components.ResultSearchRequest data={listOfRorF} />
@@ -44,9 +43,7 @@ const AutHome = () => {
           )
         }
       </div>
-      <div className="bg-darkblue w-100 d-flex justify-content-center align-items-center d-none-mobile ">
-        <img src={logo} alt="CHATAPP" style={{ width: 350 }} />
-      </div>
+      <Components.Chat />
     </div>
   );
 };

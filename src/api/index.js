@@ -1,7 +1,7 @@
 import axios from "axios"
+import variables from "../base/variables"
 const config={
-   //baseURL:"http://localhost:5000/api"
-  baseURL:"https://chat-app-server-ijxt.onrender.com/api"
+   baseURL:`${variables.baseUrl}/api`
 }
 
 let CHATAPP_API=axios.create(config)

@@ -6,37 +6,41 @@ const user = createSlice({
   initialState: {
     token: "",
     name: "",
-    id: "",
+    _id: "",
     image: "",
     email: "",
     error: "",
     searchFor: "Search chat",
     searchArray: [],
     searchKey: "",
+    connectWith: "",
   },
   reducers: {
     setErrorEmpty(state) {
       return { ...state, error: "" };
     },
     setSearchArrayEmpty(state) {
-      return {...state,searchArray:[],searchKey:""};
+      return { ...state, searchArray: [], searchKey: "" };
     },
-    setSearchFor(state,action){
-      return {...state,searchFor:action.payload}
-    }
-    ,
+    setSearchFor(state, action) {
+      return { ...state, searchFor: action.payload,connectWith:"" };
+    },
+    setConnectWith(state, action) {
+      return { ...state, connectWith: action.payload };
+    },
     logout() {
       Cookies.remove("auth");
       return {
         token: "",
         name: "",
-        id: "",
+        _id: "",
         image: "",
         email: "",
         error: "",
         searchFor: "",
         searchArray: [],
         searchKey: "",
+        connectWith: "",
       };
     },
   },

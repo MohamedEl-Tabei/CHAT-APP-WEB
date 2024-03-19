@@ -11,6 +11,8 @@ import ResultSearchNewChat from "../components/resultSearchNewChat";
 import ResultSearchChat from "../components/resultSearchChat";
 import ResultSearchRequest from "../components/resultSearchRequest";
 import NoData from "../components/noData";
+import Chat from "../components/chat";
+import ChatFriend from "../components/chatFriend";
 const Components = {
   UnAuthHome,
   AuthHome,
@@ -24,6 +26,7 @@ const Components = {
   ResultSearchNewChat,
   ResultSearchChat,ResultSearchRequest,
   NoData,
+  Chat,ChatFriend
 };
 
 export default Components;

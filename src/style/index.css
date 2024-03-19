@@ -13,34 +13,37 @@ code {
 /*A*/
 /*B*/
 .bg-darkblue {
-  background-color: #1c264e;
+  background-color: #20263f !important;
+}
+.bg-darkblue-hover:hover{
+  background-color: #20263f !important;
+  color: white !important;
 }
 .bg-gray{
   background-color: #e2e4e9;
 }
 
 .btn-darkblue {
-  background-color: #1c264e;
-  border-color: #1c264e;
+  background-color: #20263f;
+  border-color: #20263f;
 }
 .btn-darkblue:hover {
-  background-color: #1c264ee3;
-  border-color: #1c264ee3;
+  background-color: #20263fe3;
+  border-color: #20263fe3;
 }
 .btn-darkblue:disabled {
-  background-color: #1c264ecb;
-  border-color: #1c264ea8;
+  background-color: #20263fcb;
+  border-color: #20263fa8;
 }
 .btn-darkblue:active {
-  background-color: #1c264e !important;
-  border-color: #1c264e  !important;
+  background-color: #20263f !important;
+  border-color: #20263f  !important;
 }
 /*C*/
 
 /*D*/
-.dropdown-item-lightblue:hover{
-  background-color: #1c264e;
-  color: white !important;
+.dropdown-item-gray:hover{
+  background-color: #e2e4e9;
 }
 /*E*/
 /*F*/
@@ -48,8 +51,8 @@ code {
   border-radius: 0 !important;
 }
 .form-check-input:checked {
-  background-color: #1c264e !important;
-  border-color: #1c264e !important;
+  background-color: #20263f !important;
+  border-color: #20263f !important;
 }
 /*G*/
 /*H*/
@@ -57,6 +60,14 @@ code {
   height: 100vh;
 }
 /*I*/
+.isonline{
+  width: 11px;
+  height: 11px;
+  position: absolute;
+  border-radius: 50%;
+  bottom: 10px;
+  left: 40px;
+}
 /*J*/
 /*K*/
 /*L*/
@@ -82,7 +93,7 @@ code {
 }
 /*T*/
 .text-darkblue {
-  color: #1c264e;
+  color: #20263f;
 }
 
 /*U*/

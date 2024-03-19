@@ -1,13 +1,41 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Components from "../base/components";
+import Actions from "../base/actions";
+import { Table } from "react-bootstrap";
 
 const ResultSearchChat = ({ data }) => {
   const user = useSelector((s) => s.user);
+  const dispatch = useDispatch();
+  const onClickChat = (u) => {
+    dispatch(Actions.user.setConnectWith(u));
+  };
+
   if (user.searchKey.length)
     if (user.searchArray.length)
-      return user.searchArray.map((user) => <h1>{user.name}</h1>);
+      return (
+        <Table  hover>
+          <tbody>
+            {user.searchArray.map((user) => (
+              <tr onClick={() => onClickChat(user)}>
+                <Components.ChatFriend friend={user} />
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      );
     else return <Components.NoData />;
-  else if (data.length) return data.map((user) => <h1>{user.name}</h1>);
+  else if (data.length)
+    return (
+      <Table  hover>
+        <tbody>
+          {data.map((user) => (
+            <tr  onClick={() => onClickChat(user)}>
+              <Components.ChatFriend friend={user} />
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    );
   else return <Components.NoData />;
 };
 
