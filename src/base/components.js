@@ -13,6 +13,7 @@ import ResultSearchRequest from "../components/resultSearchRequest";
 import NoData from "../components/noData";
 import Chat from "../components/chat";
 import ChatFriend from "../components/chatFriend";
+import ChatRequest from "../components/chatRequest";
 const Components = {
   UnAuthHome,
   AuthHome,
@@ -26,7 +27,7 @@ const Components = {
   ResultSearchNewChat,
   ResultSearchChat,ResultSearchRequest,
   NoData,
-  Chat,ChatFriend
+  Chat,ChatFriend,ChatRequest
 };
 
 export default Components;

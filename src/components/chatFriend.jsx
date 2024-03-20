@@ -1,12 +1,12 @@
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { faMessage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector } from "react-redux";
 
 const ChatFriend = ({ friend }) => {
   const user = useSelector((s) => s.user);
   return (
-    <div
-      className={`w-100 d-flex align-items-center pointer py-3 bg-none text-user shadow`}
+    <td
+      className={`w-100 d-flex align-items-center pointer py-3 bg-none text-user shadow border-0`}
     >
       <img
         src={friend.image}
@@ -19,9 +19,10 @@ const ChatFriend = ({ friend }) => {
       <FontAwesomeIcon
         className="ms-auto  me-3"
         style={{ opacity: user.connectWith._id === friend._id ? 1 : 0 }}
-        icon={faPaperPlane}
+        icon={faMessage}
+        size="lg"
       />
-    </div>
+    </td>
   );
 };
 

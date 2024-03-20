@@ -14,8 +14,17 @@ const user = createSlice({
     searchArray: [],
     searchKey: "",
     connectWith: "",
+    notificationsRequest: [],
   },
   reducers: {
+    deleteNotificationsRequest(state) {
+      return { ...state,notificationsRequest:[]};
+    },
+    pushNotificationsRequest(state, action) {
+      let arr=[...state.notificationsRequest]
+      arr.push(action.payload)
+      return { ...state,notificationsRequest:arr};
+    },
     setErrorEmpty(state) {
       return { ...state, error: "" };
     },
@@ -23,7 +32,7 @@ const user = createSlice({
       return { ...state, searchArray: [], searchKey: "" };
     },
     setSearchFor(state, action) {
-      return { ...state, searchFor: action.payload,connectWith:"" };
+      return { ...state, searchFor: action.payload };
     },
     setConnectWith(state, action) {
       return { ...state, connectWith: action.payload };
@@ -41,6 +50,7 @@ const user = createSlice({
         searchArray: [],
         searchKey: "",
         connectWith: "",
+        notificationsRequest: [],
       };
     },
   },

@@ -21,7 +21,7 @@ const ResultSearchRequest = ({ data }) => {
   }, [toYou, fromYou]);
   if (mounted)
     return (
-      <div className="">
+      <div className="text-light">
         <h1>Requests From You</h1>
         {fromYou.length ? (
           fromYou.map((r, i) => <h3>{r.name}</h3>)
@@ -30,7 +30,7 @@ const ResultSearchRequest = ({ data }) => {
         )}
         <h1>Requests to You</h1>
         {toYou.length ? (
-          fromYou.map((r, i) => <h3>{r.name}</h3>)
+          toYou.map((r, i) => <h3>{r.name}</h3>)
         ) : (
           <Components.NoData />
         )}

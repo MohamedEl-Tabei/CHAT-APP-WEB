@@ -1,28 +1,23 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import variables from "../base/variables";
 import { Form, Navbar, Button, Container, CloseButton } from "react-bootstrap";
-import { io } from "socket.io-client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { faFileImage, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import Actions from "../base/actions";
+import { SocketIO } from "../app";
 const Chat = () => {
   const user = useSelector((s) => s.user);
   const dispatch = useDispatch();
-  const [socket, setSocket] = useState();
-  const [mounted, setMounted] = useState(false);
   const [isOnline, setIsOnline] = useState(false);
+  const [message, setMessage] = useState("");
+  const socket = useContext(SocketIO);
   const onCloseChat = () => {
     dispatch(Actions.user.setConnectWith(""));
   };
+
   useEffect(() => {
-    if (mounted) {
-      const newSocket = io(variables.baseUrl, { autoConnect: false });
-      setSocket(newSocket);
-    } else setMounted(true);
-  }, [mounted]);
-  useEffect(() => {
-    if (mounted && socket) {
+    if (socket) {
       socket.connect();
       socket.emit("addToOnlineUsers", user._id);
       socket.on("isOnline", (friendId) => {
@@ -32,7 +27,7 @@ const Chat = () => {
         if (friendId === user.connectWith._id) setIsOnline(false);
       });
     }
-  }, [socket, user._id, user.connectWith, mounted]);
+  }, [socket, user._id, user.connectWith]);
   useEffect(() => {
     if (user.connectWith) {
       setIsOnline(user.connectWith.socketId.length);
@@ -45,7 +40,7 @@ const Chat = () => {
           <Container>
             <Navbar.Brand className="position-relative  d-flex align-items-center w-100">
               <img
-                src={user.image}
+                src={user.connectWith.image}
                 width="50"
                 height="50"
                 className="d-inline-block align-top rounded-circle border border-light border-3 me-2"
@@ -72,22 +67,27 @@ const Chat = () => {
             />
           </div>
         </div>
-        <Navbar className="bg-light justify-content-between p-3 px-4">
-          <Form className="d-flex justify-content-between w-100">
+        <Navbar className="bg-light justify-content-between p-3 ">
+          <Form className="d-flex justify-content-between w-100 position-relative">
             <Form.Control
-              type="search"
+              value={message}
+              type="text"
               placeholder="Message"
-              className="me-2 rounded-0 "
+              className="rounded-0 "
               aria-label="Search"
               size="lg"
-              style={{ width: "95%" }}
+              onChange={(e) => setMessage(e.currentTarget.value)}
             />
             <Button
-              className="btn-darkblue rounded-circle p-0 ms-0 d-flex justify-content-center align-items-center"
-              style={{ width: 50, height: 50 }}
-              size="lg"
+              className="text-darkblue rounded-0 p-0 ms-0 d-flex justify-content-center align-items-center h-100 bg-none fs-5 border-0"
+              style={{ position: "absolute", right: 18, top: 0 }}
+              variant="white"
             >
-              <FontAwesomeIcon icon={faPaperPlane} />
+              <FontAwesomeIcon
+                size="lg"
+                style={{ rotate: !message ? "" : "50deg" }}
+                icon={!message ? faFileImage : faPaperPlane}
+              />
             </Button>
           </Form>
         </Navbar>

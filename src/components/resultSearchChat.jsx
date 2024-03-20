@@ -15,8 +15,8 @@ const ResultSearchChat = ({ data }) => {
       return (
         <Table  hover>
           <tbody>
-            {user.searchArray.map((user) => (
-              <tr onClick={() => onClickChat(user)}>
+            {user.searchArray.map((user,i) => (
+              <tr key={i} onClick={() => onClickChat(user)}>
                 <Components.ChatFriend friend={user} />
               </tr>
             ))}
@@ -28,8 +28,8 @@ const ResultSearchChat = ({ data }) => {
     return (
       <Table  hover>
         <tbody>
-          {data.map((user) => (
-            <tr  onClick={() => onClickChat(user)}>
+          {data.map((user,i) => (
+            <tr  key={i} onClick={() => onClickChat(user)}>
               <Components.ChatFriend friend={user} />
             </tr>
           ))}
