@@ -9,6 +9,7 @@ const AutHome = () => {
     if (user.searchKey.length === 0) {
       if (user.searchFor === "Search chat")
         (async () => {
+          setListOfRorF([]);
           let response = await REQUEST.CHATAPP_API.get("user/frends", {
             headers: { "x-auth-token": user.token },
           });

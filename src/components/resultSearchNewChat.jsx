@@ -7,6 +7,8 @@ const ResultSearchNewChat = () => {
     if (user.searchArray.length)
       return (
         <Table hover>
+        <div className="bg-user swap" />
+
           <tbody>
             {user.searchArray.map((user,i) => (
               <tr key={i}>

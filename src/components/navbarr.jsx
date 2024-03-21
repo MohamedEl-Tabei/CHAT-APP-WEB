@@ -20,11 +20,10 @@ function NavBar() {
     event.preventDefault();
     if (event.currentTarget.name === "New Chat")
       setSearchFor("Search new chat");
-    else if (event.currentTarget.name === "Chat Request"){
+    else if (event.currentTarget.name === "Chat Request") {
       setSearchFor("Search request");
-    dispatch(Actions.user.deleteNotificationsRequest())
-    }
-      else if (event.currentTarget.name === "Messages")
+      dispatch(Actions.user.deleteNotificationsRequest());
+    } else if (event.currentTarget.name === "Messages")
       setSearchFor("Search chat");
   };
   const onClickBack = () => {
@@ -47,13 +46,13 @@ function NavBar() {
               src={user.image}
               width="50"
               height="50"
-              className="d-inline-block align-top rounded-circle border border-light border-3"
+              className="d-inline-block align-top rounded-circle border border-light border-3 switch"
               alt="Profile"
             />
           ) : (
             <div
               style={{ height: 50, width: 50 }}
-              className="d-flex justify-content-center align-items-center"
+              className="d-flex justify-content-center align-items-center switch"
             >
               <FontAwesomeIcon
                 onClick={onClickBack}
@@ -71,19 +70,26 @@ function NavBar() {
               className="rounded-0 switch p-0 border-0 shadow"
               style={{ top: 10, right: -10 }}
             >
-              {["Messages","New Chat", "Chat Request",].map((v) => (
+              {["Messages", "New Chat", "Chat Request"].map((v) => (
                 <Dropdown.Item
                   key={v}
                   name={v}
-                  className="text-center dropdown-item-gray py-2 d-flex justify-content-center align-items-center"
+                  className={`text-center dropdown-item-gray py-2 d-${
+                    (user.searchFor === "Search chat" && v === "Messages") ||
+                    (user.searchFor === "Search new chat" &&v==="New Chat")||
+                    (user.searchFor==="Search request"&& v==="Chat Request")?
+                    "none":"flex"
+                  } justify-content-center align-items-center`}
                   onClick={(e) => onSelectDropdownItem(e)}
                 >
                   {v}
-                  
+
                   <span
                     style={{
-                      
-                      opacity:v=== "Chat Request"&& user.notificationsRequest.length ? 1 : 0,
+                      opacity:
+                        v === "Chat Request" && user.requestNotifications.length
+                          ? 1
+                          : 0,
                     }}
                     className=" text-danger fs-4 ms-1 d-flex justify-content-center"
                   >
@@ -92,7 +98,7 @@ function NavBar() {
                 </Dropdown.Item>
               ))}
               <Dropdown.Item
-                className="text-danger dropdown-item-gray text-center py-2"
+                className="text-danger dropdown-item-gray text-center py-2 d-flex justify-content-center align-items-center"
                 onClick={onLogout}
               >
                 Log out
@@ -106,7 +112,7 @@ function NavBar() {
             <div
               style={{
                 top: 0,
-                opacity: user.notificationsRequest.length ? 1 : 0,
+                opacity: user.requestNotifications.length ? 1 : 0,
               }}
               className="position-absolute text-danger"
             >

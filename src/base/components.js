@@ -14,6 +14,8 @@ import NoData from "../components/noData";
 import Chat from "../components/chat";
 import ChatFriend from "../components/chatFriend";
 import ChatRequest from "../components/chatRequest";
+import ChatRequestFromYou from "../components/chatRequestFromYou";
+import ChatRequestToYou from "../components/chatRequestToYou";
 const Components = {
   UnAuthHome,
   AuthHome,
@@ -25,9 +27,15 @@ const Components = {
   NavBar,
   Search,
   ResultSearchNewChat,
-  ResultSearchChat,ResultSearchRequest,
+  ResultSearchChat,
+  ResultSearchRequest,
   NoData,
-  Chat,ChatFriend,ChatRequest
+  Chat,
+  ChatFriend,
+  ChatRequest,
+  ChatRequestFromYou,
+
+  ChatRequestToYou,
 };
 
 export default Components;

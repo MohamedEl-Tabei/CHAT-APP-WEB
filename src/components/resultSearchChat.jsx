@@ -13,9 +13,11 @@ const ResultSearchChat = ({ data }) => {
   if (user.searchKey.length)
     if (user.searchArray.length)
       return (
-        <Table  hover>
+        <Table hover>
+          <div className="bg-user swap" />
+
           <tbody>
-            {user.searchArray.map((user,i) => (
+            {user.searchArray.map((user, i) => (
               <tr key={i} onClick={() => onClickChat(user)}>
                 <Components.ChatFriend friend={user} />
               </tr>
@@ -26,10 +28,12 @@ const ResultSearchChat = ({ data }) => {
     else return <Components.NoData />;
   else if (data.length)
     return (
-      <Table  hover>
+      <Table hover>
+        <div className="bg-user swap" />
+
         <tbody>
-          {data.map((user,i) => (
-            <tr  key={i} onClick={() => onClickChat(user)}>
+          {data.map((user, i) => (
+            <tr key={i} onClick={() => onClickChat(user)}>
               <Components.ChatFriend friend={user} />
             </tr>
           ))}

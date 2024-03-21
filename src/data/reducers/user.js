@@ -14,16 +14,17 @@ const user = createSlice({
     searchArray: [],
     searchKey: "",
     connectWith: "",
-    notificationsRequest: [],
+    requestNotifications: [],
+    messageNotifications: [],
   },
   reducers: {
     deleteNotificationsRequest(state) {
-      return { ...state,notificationsRequest:[]};
+      return { ...state, requestNotifications: [] };
     },
     pushNotificationsRequest(state, action) {
-      let arr=[...state.notificationsRequest]
-      arr.push(action.payload)
-      return { ...state,notificationsRequest:arr};
+      let arr = [...state.requestNotifications];
+      arr.push(action.payload);
+      return { ...state, requestNotifications: arr };
     },
     setErrorEmpty(state) {
       return { ...state, error: "" };
@@ -50,7 +51,8 @@ const user = createSlice({
         searchArray: [],
         searchKey: "",
         connectWith: "",
-        notificationsRequest: [],
+        requestNotifications: [],
+        messageNotifications: [],
       };
     },
   },

@@ -15,7 +15,7 @@ const Home = () => {
   }, [user.error, user.name]);
   if (doneDispatch)
     return (
-      <div>
+      <div className="overflow-hidden">
         {user.name.length ? <Components.AuthHome /> : <Components.UnAuthHome />}
       </div>
     );

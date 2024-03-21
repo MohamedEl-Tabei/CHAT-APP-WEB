@@ -35,7 +35,7 @@ const Chat = () => {
   }, [user.connectWith]);
   if (user.connectWith)
     return (
-      <div className="w-100 h-100 d-flex flex-column justify-content-between bg-gray ">
+      <div className="w-100 h-100 d-flex flex-column justify-content-between bg-gray switch ">
         <Navbar className="bg-light shadow">
           <Container>
             <Navbar.Brand className="position-relative  d-flex align-items-center w-100">
@@ -95,7 +95,7 @@ const Chat = () => {
     );
   else
     return (
-      <div className="w-100 h-100 d-flex flex-column justify-content-center align-items-center  bg-gray ">
+      <div className="w-100 h-100 d-flex flex-column justify-content-center align-items-center  bg-gray switch">
         <img
           src={variables.loogo}
           alt="CHATAPP"
