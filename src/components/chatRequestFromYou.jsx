@@ -5,17 +5,24 @@ import { SocketIO } from "../app";
 const ChatRequestFromYou = ({ newFriend }) => {
   const user = useSelector((s) => s.user);
   const socket = useContext(SocketIO);
-  const [display,setDisplay]=useState(true)
+  const [display, setDisplay] = useState(true);
   const onCancle = () => {
     socket.emit("cancelRequest", newFriend._id, user._id);
-    setDisplay(false)
+    setDisplay(false);
   };
   useEffect(() => {
     socket.on("error", (e) => console.log(e));
   }, [socket]);
+  useEffect(() => {
+    socket.on("requestRefused", (id) => {
+      setDisplay(!(id.toString() === newFriend._id.toString()));
+    });
+  }, [newFriend._id, socket]);
   return (
     <div
-      className={`w-100 d-${display?"flex":"none"} align-items-center  bg-none text-user shadow p-3 border-0 mb-3`}
+      className={`w-100 d-${
+        display ? "flex" : "none"
+      } align-items-center  bg-none text-user shadow p-3 border-0 mb-3`}
     >
       <img
         src={newFriend.image}

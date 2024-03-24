@@ -10,6 +10,10 @@ const ChatRequestToYou = ({ newFriend }) => {
     socket.emit("acceptRequest", newFriend._id, user._id);
     setRemove(true)
   };
+  const onRefuse=()=>{
+    socket.emit("refuseRequest",newFriend._id,user._id)
+    setRemove(true)
+  }
   return (
     <div
       className={`w-100 d-${remove?"none":"flex"} align-items-center  bg-none text-user shadow p-3 border-0 mb-3 position-relative`}
@@ -31,7 +35,7 @@ const ChatRequestToYou = ({ newFriend }) => {
         >
           Accept
         </Button>
-        <Button onClick={onAccept} variant="outline-danger" size="sm">
+        <Button onClick={onRefuse} variant="outline-danger" size="sm">
           Refuse
         </Button>
       </div>

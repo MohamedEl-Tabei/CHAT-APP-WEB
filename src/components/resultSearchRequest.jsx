@@ -44,12 +44,23 @@ const ResultSearchRequest = ({ data }) => {
         let newRequest = await REQUEST.CHATAPP_API.get(`user/${userId}`, {
           headers: { "x-auth-token": user.token },
         });
-        setToYou([...toYou, await newRequest.data]);
+        let newArray=[await newRequest.data]
+        toYou.forEach(v=>newArray.push(v))
+        setToYou(newArray);
       });
     }
   }, [socket, toYou, user.token]);
   useEffect(() => {
     socket.on("requestAccepted", async (friendId) => {
+      if (fromYou) {
+        let arr = [];
+        fromYou.forEach((v) => {
+          if (v._id !== friendId) arr.push(v);
+        });
+        setFromYou(arr);
+      }
+    });
+    socket.on("requestRefused", async (friendId) => {
       if (fromYou) {
         let arr = [];
         fromYou.forEach((v) => {

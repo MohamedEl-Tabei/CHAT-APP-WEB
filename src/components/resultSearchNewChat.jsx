@@ -8,7 +8,7 @@ const ResultSearchNewChat = () => {
       return (
         <div style={{ height: "90vh" }} className="overflow-y-scroll">
           <Table hover>
-            <div className="bg-user swap" />
+            <tbody className="bg-user swap" />
 
             <tbody>
               {user.searchArray.map((user, i) => (

@@ -48,7 +48,8 @@ const Chat = () => {
               />
               <span>{user.connectWith.name}</span>
               <div
-                className={`isonline bg-${isOnline ? "success" : "secondary"}`}
+                className={`isonline `}
+                style={{backgroundColor:isOnline?"#04f600":"gray"}}
               />
               <CloseButton onClick={onCloseChat} className="ms-auto" />
             </Navbar.Brand>

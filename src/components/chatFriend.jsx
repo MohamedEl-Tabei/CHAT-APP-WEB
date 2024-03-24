@@ -1,12 +1,22 @@
-import { faMessage } from "@fortawesome/free-solid-svg-icons";
+import { faCircle,  } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSelector } from "react-redux";
+import { useContext, useEffect, useState } from "react";
+import { SocketIO } from "../app";
 
 const ChatFriend = ({ friend }) => {
-  const user = useSelector((s) => s.user);
+  const [isOnline,setIsOnline]=useState(friend.socketId?.length)
+  const socket=useContext(SocketIO)
+  useEffect(() => {
+    socket.on("isOnline", (friendId) => {
+      if (friendId === friend._id) setIsOnline(true);
+    });
+    socket.on("isOffline", (friendId) => {
+      if (friendId === friend._id) setIsOnline(false);
+    });
+  }, [friend._id,socket]);
   return (
     <td
-      className={`w-100 d-flex align-items-center pointer py-3 bg-none text-user shadow border-0`}
+      className={`w-100 d-flex align-items-center pointer py-3 bg-none text-user shadow border-0 px-4`}
     >
       <img
         src={friend.image}
@@ -17,10 +27,10 @@ const ChatFriend = ({ friend }) => {
       />
       <span>{friend.name}</span>
       <FontAwesomeIcon
-        className="ms-auto  me-3"
-        style={{ opacity: user.connectWith._id === friend._id ? 1 : 0 }}
-        icon={faMessage}
+        className={`ms-auto  me-3`}
+        icon={faCircle}
         size="lg"
+        style={{fontSize:"8px",color:isOnline?"#04f600":"gray"}}
       />
     </td>
   );
