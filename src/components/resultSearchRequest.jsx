@@ -1,21 +1,24 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Components from "../base/components";
 import { useContext, useEffect, useState } from "react";
 import { Alert } from "react-bootstrap";
 import { SocketIO } from "../app";
 import REQUEST from "../api";
+import Actions from "../base/actions";
 const ResultSearchRequest = ({ data }) => {
   const user = useSelector((s) => s.user);
   let [fromYou, setFromYou] = useState();
   let [toYou, setToYou] = useState();
   let [mounted, setMounted] = useState(false);
   let socket = useContext(SocketIO);
+  let dispatch = useDispatch();
   useEffect(() => {
+    dispatch(Actions.user.deleteNotificationsRequest());
     (async () =>
-      await REQUEST.CHATAPP_API.get("user/clearRequestNotifications" ,{
+      await REQUEST.CHATAPP_API.get("user/clearRequestNotifications", {
         headers: { "x-auth-token": user.token },
       }))();
-  }, [user.token]);
+  }, [user.token, dispatch]);
   useEffect(() => {
     if (user.searchKey.length) {
       setFromYou(user.searchArray[0]);
@@ -29,7 +32,7 @@ const ResultSearchRequest = ({ data }) => {
     if (toYou && fromYou) setMounted(true);
   }, [toYou, fromYou]);
   useEffect(() => {
-    if (toYou)
+    if (toYou) {
       socket.on("cancelRequestToYou", (userId) => {
         let arr = [];
         toYou.forEach((v) => {
@@ -37,7 +40,25 @@ const ResultSearchRequest = ({ data }) => {
         });
         setToYou(arr);
       });
-  }, [socket, toYou]);
+      socket.on("newRequest", async (userId) => {
+        let newRequest = await REQUEST.CHATAPP_API.get(`user/${userId}`, {
+          headers: { "x-auth-token": user.token },
+        });
+        setToYou([...toYou, await newRequest.data]);
+      });
+    }
+  }, [socket, toYou, user.token]);
+  useEffect(() => {
+    socket.on("requestAccepted", async (friendId) => {
+      if (fromYou) {
+        let arr = [];
+        fromYou.forEach((v) => {
+          if (v._id !== friendId) arr.push(v);
+        });
+        setFromYou(arr);
+      }
+    });
+  }, [user.token, socket, fromYou]);
   if (mounted)
     return (
       <div className="">
@@ -56,21 +77,23 @@ const ResultSearchRequest = ({ data }) => {
                 className="text-user overflow-y-scroll p-3"
                 style={{ height: "37.4vh" }}
               >
-                {item.body.map((v, i) =>
-                  item.header === "Request from you" ? (
-                    <div key={i}>
-                      {" "}
-                      <Components.ChatRequestFromYou newFriend={v} />
-                    </div>
-                  ) : item.header === "Request to you" ? (
-                    <div key={i}>
-                      {" "}
-                      <Components.ChatRequestToYou newFriend={v} />
-                    </div>
-                  ) : (
-                    ""
-                  )
-                )}
+                {item.body && item.body.length
+                  ? item.body.map((v, i) =>
+                      item.header === "Request from you" ? (
+                        <div key={i}>
+                          {" "}
+                          <Components.ChatRequestFromYou newFriend={v} />
+                        </div>
+                      ) : item.header === "Request to you" ? (
+                        <div key={i}>
+                          {" "}
+                          <Components.ChatRequestToYou newFriend={v} />
+                        </div>
+                      ) : (
+                        ""
+                      )
+                    )
+                  : console.log()}
               </div>
             </div>
           );

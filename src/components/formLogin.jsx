@@ -19,7 +19,7 @@ const FormLogin = ({ setHasAccount }) => {
 
   let [step, setStep] = useState(1);
   let [email, setEmail] = useState("salah@gmail.com");
-  let [password, setPassword] = useState("Mo123***");
+  let [password, setPassword] = useState("Ch123***");
   let [rememberMe, setRememberMe] = useState(false);
   let [showPass, setShowPass] = useState(false);
   let [hasError, setHasError] = useState(false);

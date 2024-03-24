@@ -149,3 +149,22 @@ code {
       height: 0px;
     }
   }
+  @keyframes scanner {
+    0%{
+      height: 100vh;
+    }
+    25%{
+      height: 0px;
+    }
+    50%{
+      height: 100vh;
+    }
+    75%{
+      height: 0px;
+
+    }
+    100%{
+      height: 100vh;
+
+    }
+  }

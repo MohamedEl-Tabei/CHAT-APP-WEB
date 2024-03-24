@@ -33,10 +33,12 @@ function NavBar() {
     dispatch(Actions.user.setSearchFor(searchFor));
   }, [dispatch, searchFor]);
   useEffect(() => {
-    socket.on("requestNotification", (id) =>
-      dispatch(Actions.user.pushNotificationsRequest(id))
-    );
-  }, [socket, dispatch]);
+    socket.on("requestNotification", (id) => {
+      if (user.searchFor === "Search request")
+        dispatch(Actions.user.deleteNotificationsRequest());
+      else dispatch(Actions.user.pushNotificationsRequest(id));
+    });
+  }, [socket, dispatch, user.searchFor]);
   return (
     <Navbar className="bg-darkblue  border-bottom shadow" data-bs-theme="dark">
       <Container>
@@ -76,9 +78,12 @@ function NavBar() {
                   name={v}
                   className={`text-center dropdown-item-gray py-2 d-${
                     (user.searchFor === "Search chat" && v === "Messages") ||
-                    (user.searchFor === "Search new chat" &&v==="New Chat")||
-                    (user.searchFor==="Search request"&& v==="Chat Request")?
-                    "none":"flex"
+                    (user.searchFor === "Search new chat" &&
+                      v === "New Chat") ||
+                    (user.searchFor === "Search request" &&
+                      v === "Chat Request")
+                      ? "none"
+                      : "flex"
                   } justify-content-center align-items-center`}
                   onClick={(e) => onSelectDropdownItem(e)}
                 >
@@ -87,7 +92,9 @@ function NavBar() {
                   <span
                     style={{
                       opacity:
-                        v === "Chat Request" && user.requestNotifications.length
+                        v === "Chat Request" &&
+                        user.requestNotifications.length &&
+                        user.searchFor !== "Search request"
                           ? 1
                           : 0,
                     }}

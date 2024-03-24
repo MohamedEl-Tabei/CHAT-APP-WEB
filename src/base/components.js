@@ -16,6 +16,7 @@ import ChatFriend from "../components/chatFriend";
 import ChatRequest from "../components/chatRequest";
 import ChatRequestFromYou from "../components/chatRequestFromYou";
 import ChatRequestToYou from "../components/chatRequestToYou";
+import Scanner from "../components/animationScanning";
 const Components = {
   UnAuthHome,
   AuthHome,
@@ -36,6 +37,7 @@ const Components = {
   ChatRequestFromYou,
 
   ChatRequestToYou,
+  Scanner,
 };
 
 export default Components;
