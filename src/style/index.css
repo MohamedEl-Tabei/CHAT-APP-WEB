@@ -113,7 +113,9 @@ code {
 ::-webkit-scrollbar {
   width: 5px;
 }
-
+.wmc{
+  width: max-content;
+}
 /* Track */
 ::-webkit-scrollbar-track {
   background: #f1f1f1; 
