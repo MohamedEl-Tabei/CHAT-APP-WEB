@@ -139,7 +139,7 @@ const Chat = () => {
               className="rounded-0"
               aria-label="Search"
               size="lg"
-              style={{ paddingLeft: "45px" }}
+              style={{ paddingLeft: "45px",paddingRight:45 }}
               onChange={(e) => setMessage(e.currentTarget.value)}
             />
             <Button
