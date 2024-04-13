@@ -13,7 +13,7 @@ const user = createSlice({
     searchFor: "Search chat",
     searchArray: [],
     searchKey: "",
-    connectWith: "",
+    connectWith: {_id:""},
     requestNotifications: [],
     messageNotifications: [],
   },
@@ -26,6 +26,12 @@ const user = createSlice({
       arr.push(action.payload);
       return { ...state, requestNotifications: arr };
     },
+    pushNotificationsMessage(state, action) {
+      let arr = [...state.messageNotifications];
+      arr.push(action.payload);
+      return { ...state, messageNotifications: arr };
+    },
+    
     setErrorEmpty(state) {
       return { ...state, error: "" };
     },
@@ -50,7 +56,7 @@ const user = createSlice({
         searchFor: "",
         searchArray: [],
         searchKey: "",
-        connectWith: "",
+        connectWith: {_id:""},
         requestNotifications: [],
         messageNotifications: [],
       };
@@ -73,7 +79,21 @@ const user = createSlice({
       .addCase(Actions.user.search.fulfilled, (state, action) => ({
         ...state,
         ...action.payload,
-      }));
+      }))
+      .addCase(
+        Actions.user.sethNotificationsMessage.fulfilled,
+        (state, action) => ({
+          ...state,
+          ...action.payload,
+        })
+      )
+      .addCase(
+        Actions.user.deleteNotificationsMessage.fulfilled,
+        (state, action) => ({
+          ...state,
+          ...action.payload,
+        })
+      );
   },
 });
 const reducer = user.reducer;

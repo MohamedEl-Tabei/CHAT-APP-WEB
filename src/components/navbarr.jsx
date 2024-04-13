@@ -38,7 +38,12 @@ function NavBar() {
         dispatch(Actions.user.deleteNotificationsRequest());
       else dispatch(Actions.user.pushNotificationsRequest(id));
     });
-  }, [socket, dispatch, user.searchFor]);
+    socket.on("receiveMessage", (newMessage, senderId) => {
+      if (user.searchFor !== "Search chat") {
+        dispatch(Actions.user.sethNotificationsMessage(user.token));
+      }
+    });
+  }, [socket, dispatch, user.searchFor,user.token]);
   return (
     <Navbar className="bg-darkblue  border-bottom shadow" data-bs-theme="dark">
       <Container>

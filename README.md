@@ -1,25 +1,17 @@
-# CHATAPP
+## 💬 CHATAPP
+Simply you can connect with others.
 
-Chat web appliction that can be used to connect with your friends.
+## 🌱 Lessons Learned
+<img src="https://img.shields.io/badge/Socket.io-383838?logo=sockdetdotio&logoColor=white&style=for-the-badge" height="40" alt="socketio logo"  /> 
 
-<!--## Lessons Learned
+## 🛠 Code with
+<div align="left">
+  <img src="https://img.shields.io/badge/Bootstrap-7952B3?logo=bootsdtrap&logoColor=white&style=for-the-badge" height="40" alt="bootstrap logo"  />
+    <img width="12" />
+  <img src="https://img.shields.io/badge/React-61DAFB?logo=readct&logoColor=black&style=for-the-badge" height="40" alt="react logo"  />
+  <img width="12" />
+  <img src="https://img.shields.io/badge/Socket.io-383838?logo=sockdetdotio&logoColor=white&style=for-the-badge" height="40" alt="socketio logo"  />  
+</div>
 
-What did you learn while building this project? What challenges did you face and how did you overcome them?
-
--->
-## Screenshots
-
-![App Screenshot](https://i.ibb.co/fDhJLdQ/Capture.png)
-
-![App Screenshot](https://i.ibb.co/MNM719B/Capture.png)
-
-![App Screenshot](https://i.ibb.co/GQdN31v/Capture.png)
-
-![App Screenshot](https://i.ibb.co/XYNhHWm/Capture.png)
-
-
-
-## Demo
-
-
+## 🔗 Demo
 https://chatapp-izc9.onrender.com/

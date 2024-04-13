@@ -12,6 +12,8 @@ const ResultSearchChat = ({ data }) => {
   let [list, setList] = useState(data);
   const onClickChat = (u) => {
     dispatch(Actions.user.setConnectWith(u));
+    dispatch(Actions.user.deleteNotificationsMessage({token:user.token,id:u._id}))
+    socket.emit("seeMessage",u._id,user._id)
   };
   useEffect(() => {
     socket.on("requestAccepted", async (friendId) => {

@@ -61,6 +61,9 @@ code {
 }
 /*G*/
 /*H*/
+.hmc{
+  max-height: max-content !important;
+}
 .h-100vh {
   height: 100vh;
 }

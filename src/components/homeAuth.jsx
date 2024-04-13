@@ -37,7 +37,7 @@ const AutHome = () => {
       <div
         style={{ width: "45%" }}
         className={` w-100-mobile bg-user ${
-          user.connectWith ? "d-none-mobile" : ""
+          user.connectWith._id ? "d-none-mobile" : ""
         }  `}
       >
         <Components.NavBar />
@@ -56,7 +56,7 @@ const AutHome = () => {
           <div />
         )}
       </div>
-      <div className={` ${user.connectWith ? "" : "d-none-mobile"} w-100`}>
+      <div className={` ${user.connectWith._id ? "" : "d-none-mobile"} w-100`}>
         <Components.Chat />
       </div>
     </div>

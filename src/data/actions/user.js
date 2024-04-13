@@ -88,11 +88,32 @@ const search = createAsyncThunk("user/search", async (data) => {
     return { error: error.response.data };
   }
 });
+const sethNotificationsMessage = createAsyncThunk("user/sethNotificationsMessage", async (token) => {
+  try {
+    let response=await REQUEST.CHATAPP_API.get("user/MessageNotifications",{headers:{
+      "x-auth-token":token
+    }})
+    return{error: "",messageNotifications:await response.data };
+  } catch (error) {
+    return { error: error.response.data };
+  }
+});
+const deleteNotificationsMessage = createAsyncThunk("user/deleteNotificationsMessage", async (data) => {
+  try {                                               
+    let response=await REQUEST.CHATAPP_API.post("user/deleteMessageNotifications",{id:data.id},{headers:{
+      "x-auth-token":data.token
+    }})
+    return{error: "",messageNotifications:await response.data };
+  } catch (error) {
+    return { error: error.response.data };
+  }
+});
 const actions = {
   signup,
   login,
   loginByToken,
   search,
+  sethNotificationsMessage,deleteNotificationsMessage
 };
 
 export default actions;

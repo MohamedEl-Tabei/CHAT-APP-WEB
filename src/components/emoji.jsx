@@ -12,7 +12,14 @@ import {
   faSpider,
 } from "@fortawesome/free-solid-svg-icons";
 import REQUEST from "../api";
-const Emoji = ({ emoji, message, setMessage }) => {
+const Emoji = ({
+  emoji,
+  message,
+  setMessage,
+  selectionStart,
+  selectionEnd,
+  refMessageInput
+}) => {
   let [emojis, setEmojis] = useState();
   let [activeKey, setActiveKey] = useState("Most recently used");
   let [mostRecentlyUsedEmoji, setMostRecentlyUsedEmoji] = useState([]);
@@ -113,7 +120,7 @@ const Emoji = ({ emoji, message, setMessage }) => {
           ["🌌", "🌞"],
           ["🗻", "🗿"],
           ["🕋", "🕍"],
-          ["⛪","🛕", "🏯", "🌉", "🌋", "🏰", "🌁"],
+          ["⛪", "🛕", "🏯", "🌉", "🌋", "🏰", "🌁"],
           ["🌃", "🌇"],
           ["🏠", "🏭"],
         ].map((list) => pushEmojis(list, arr));
@@ -213,7 +220,22 @@ const Emoji = ({ emoji, message, setMessage }) => {
             {emojis?.map((e, k) => (
               <div
                 onClick={async () => {
-                  setMessage(message.concat(e));
+                  refMessageInput.current.focus()
+                  setMessage(
+                    selectionEnd === selectionStart &&
+                      selectionEnd === 0 &&
+                      message.length
+                      ? e + message
+                      : selectionEnd === selectionStart
+                      ? message.slice(0, selectionStart) +
+                        e +
+                        message.slice(selectionStart, message.length)
+                      : selectionEnd !== selectionStart
+                      ? message.slice(0, selectionStart) +
+                        e +
+                        message.slice(selectionEnd, message.length)
+                      : message.concat(e)
+                  );
                   let response = await REQUEST.CHATAPP_API.post(
                     "user/addToMostRecentlyUsedEmoji",
                     { emoji: e },
@@ -222,9 +244,10 @@ const Emoji = ({ emoji, message, setMessage }) => {
                   setMostRecentlyUsedEmoji(response.data);
                 }}
                 key={k}
-                className={`pointer fs-4  ${
-                  emojis.length < 15 ? "" : "mx-auto"
+                className={`pointer fs-4  p-1 d-flex justify-content-center align-items-center shadow rounded-circle ${
+                  emojis.length < 15 ? "me-2" : "mx-auto"
                 }`}
+                style={{ width: 40, height: 40 }}
               >
                 {e}
               </div>
