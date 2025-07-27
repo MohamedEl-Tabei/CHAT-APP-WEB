@@ -15,7 +15,8 @@ const ChatRequest = ({ newFriend }) => {
       className={`w-100 d-${display?"flex":"none"} align-items-center  bg-none text-user shadow p-3 border-0`}
     >
       <img
-        src={newFriend.image}
+              src={"https://i.ibb.co/0RdPPt8v/296fe121-5dfa-43f4-98b5-db50019738a7.jpg"}
+        // src={newFriend.image}
         width="40"
         height="40"
         className="d-inline-block align-top rounded-circle border border-light border-3 me-2"

@@ -86,7 +86,8 @@ const ChatFriend = ({ friend }) => {
       className={`w-100 d-flex align-items-center pointer py-3 bg-none text-user shadow border-0 px-4`}
     >
       <img
-        src={friend.image}
+              src={"https://i.ibb.co/0RdPPt8v/296fe121-5dfa-43f4-98b5-db50019738a7.jpg"}
+        // src={friend.image}
         width="40"
         height="40"
         className="d-inline-block align-top rounded-circle border border-light border-3 me-2"

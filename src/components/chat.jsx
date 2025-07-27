@@ -120,7 +120,8 @@ const Chat = () => {
           <Container>
             <Navbar.Brand className="position-relative  d-flex align-items-center w-100">
               <img
-                src={user.connectWith.image}
+              src={"https://i.ibb.co/0RdPPt8v/296fe121-5dfa-43f4-98b5-db50019738a7.jpg"}
+                // src={user.connectWith.image}
                 width="50"
                 height="50"
                 className="d-inline-block align-top rounded-circle border border-light border-3 me-2"
