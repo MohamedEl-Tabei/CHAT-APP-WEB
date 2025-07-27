@@ -50,7 +50,7 @@ function NavBar() {
         <Navbar.Brand>
           {searchFor === "Search chat" ? (
             <img
-              src={user.image}
+              src={"https://i.ibb.co/0RdPPt8v/296fe121-5dfa-43f4-98b5-db50019738a7.jpg"||user.image}
               width="50"
               height="50"
               className="d-inline-block align-top rounded-circle border border-light border-3 switch"
